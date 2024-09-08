@@ -29,6 +29,8 @@
          POSTGRES_USER: user
          POSTGRES_PASSWORD: password
          POSTGRES_DB: laravel_db
+       ports:
+         - "5432:5432"
        networks:
          - laravel_network
 
