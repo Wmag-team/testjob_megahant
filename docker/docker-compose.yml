@@ -31,6 +31,8 @@
          POSTGRES_DB: laravel_db
        ports:
          - "5432:5432"
+       volumes:
+         - pgdata_wisher:/var/lib/postgresql/data
        networks:
          - laravel_network
 
@@ -44,3 +46,6 @@
    networks:
      laravel_network:
        driver: bridge
+
+   volumes:
+     pgdata_wisher:  # Объявление тома для PostgreSQL
