@@ -1,6 +1,7 @@
-## Full instructions on how to install and run the latest laravel on docker containers + redis + postgres
+## Full instructions on how to install and run the latest laravel on docker containers + redis + postgres + Horizon Jobs
 
 Just follow this instruction and have a fun with developing software :)
+After this installation on any server you will have complite working last version of laravel with Jobs queue on Redis, controlled by Horizon - it will give unlimited options to produce any Queue with any confiuration! Good luck!
 
 ### Installation with explanations:
 
