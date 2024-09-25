@@ -6,7 +6,7 @@ After this installation on any server you will have complete working last versio
 ### Installation with explanations:
 
 1. Download this git repository to your PC by command:
-`git clone git@github.com:Wmag-team/docker_laravel_nginx_postgres_redis_localhost.git`
+`git clone git@github.com:Wmag-team/docker_laravel_nginx_postgres_redis_localhost.git .`
 2. Go to "docker" folder and execute command: 
 `cd docker && docker-compose up -d --build && cd ..`
 3. Next, go inside docker container "laravel_app" make install last Laravel by composer and exit from container: 
@@ -42,7 +42,7 @@ php artisan view:clear
 ### Installation commands only:
 
 ```
-git clone git@github.com:Wmag-team/docker_laravel_nginx_postgres_redis_localhost.git
+git clone git@github.com:Wmag-team/docker_laravel_nginx_postgres_redis_localhost.git .
 cd docker && docker-compose up -d --build && cd ..
 docker exec -it laravel_app bash
 composer create-project --prefer-dist laravel/laravel .
