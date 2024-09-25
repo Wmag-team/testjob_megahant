@@ -32,11 +32,11 @@
        environment:
          POSTGRES_USER: user2
          POSTGRES_PASSWORD: password2
-         POSTGRES_DB: laravel_db2
+         POSTGRES_DB: laravel_testJob
        ports:
          - "5444:5432"
        volumes:
-         - pgdata_wisher2:/var/lib/postgresql/data
+         - pgdata_testJob:/var/lib/postgresql/data
        networks:
          - laravel_network
 
@@ -52,4 +52,4 @@
        driver: bridge
 
    volumes:
-     pgdata_wisher2:
+     pgdata_testJob:
