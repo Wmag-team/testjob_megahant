@@ -1,23 +1,11 @@
-## Full instructions on how to install and run the latest laravel on docker containers + redis + postgres + Horizon Jobs
-
-Just follow this instruction and have a fun with developing software :)
-After this installation on any server you will have complete working last version of laravel with Jobs queue on Redis, controlled by Horizon - it will give unlimited options to produce any Queue with any confiuration! Good luck!
-
 ### Installation with explanations:
 
 1. Download this git repository to your PC by command:
-`git clone git@github.com:Wmag-team/docker_laravel_nginx_postgres_redis_localhost.git .`
+`git clone git@github.com:Wmag-team/git@github.com:Wmag-team/testjob_megahant.git .`
+2. `cp ./laravel/.env.example ./laravel/.env`
 2. Go to "docker" folder and execute command: 
 `cd docker && docker-compose up -d --build && cd ..`
-3. Next, go inside docker container "laravel_app" make install last Laravel by composer and exit from container: 
-```
-docker exec -it laravel_app bash
-composer create-project --prefer-dist laravel/laravel .
-exit
-```
-6. Compare file './laravel_snippets/composer.json' and add, what needed in './laravel/composer.json' 
-7. Compare file './laravel_snippets/.env' and add, what needed in './laravel/.env'
-8. Go back inside "laravel_app" container and make next command:
+3. Some jobs to do to start Laravel
 ```
 docker exec -it laravel_app bash
 composer u
@@ -32,40 +20,14 @@ php artisan config:cache
 php artisan config:clear
 php artisan view:cache
 php artisan view:clear
+touch storage/logs/laravel.log
+touch storage/logs/error.log
+touch storage/logs/debug.log
+sudo chmod -R 775 storage
+sudo chmod -R ugo+rw storage
 
 ```
 
-
-
-----------------------
-
-### Installation commands only:
-
-```
-git clone git@github.com:Wmag-team/docker_laravel_nginx_postgres_redis_localhost.git .
-cd docker && docker-compose up -d --build && cd ..
-docker exec -it laravel_app bash
-composer create-project --prefer-dist laravel/laravel .
-exit
-```
-
-... some manual work here with files: composer.json & .env ...
-
-```
-docker exec -it laravel_app bash
-composer u
-chmod -R 777 storage bootstrap/cache
-php artisan migrate
-php artisan optimize:clear
-php artisan route:cache
-php artisan route:clear
-php artisan event:cache
-php artisan event:clear
-php artisan config:cache
-php artisan config:clear
-php artisan view:cache
-php artisan view:clear
-```
 
 ### Why do you need it ?
 
