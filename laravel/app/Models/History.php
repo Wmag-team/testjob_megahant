@@ -32,4 +32,9 @@ class History extends Model
     {
         return 'string';
     }
+
+    public function modelable()
+    {
+        return $this->morphTo();
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class UserFactory extends Factory
 {
@@ -14,7 +15,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => Str::uuid(),
+            'id' => Uuid::uuid6(),
             'last_name' => $this->faker->lastName,
             'name' => $this->faker->firstName,
             'middle_name' => $this->faker->optional()->firstName,
@@ -23,6 +24,12 @@ class UserFactory extends Factory
             'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function createUser(array $data = [])
+    {
+        $userService = new UserService();
+        return $userService->createUser(array_merge($this->definition(), $data));
     }
 
 }

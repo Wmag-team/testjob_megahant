@@ -27,7 +27,6 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -39,5 +38,10 @@ class User extends Authenticatable
     public function getKeyType()
     {
         return 'string';
+    }
+
+    public function histories()
+    {
+        return $this->morphMany(History::class, 'historable', 'model_name', 'model_id');
     }
 }

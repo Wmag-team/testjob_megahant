@@ -6,18 +6,23 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class UserService
 {
     protected $historyService;
 
+    public function __construct()
+    {
+        $this->historyService = new HistoryService();
+    }
+
     public function createUser(array $data): User
     {
+        $data['id'] = Uuid::uuid6();
         $data['password'] = Hash::make($data['password']);
-        $data['id'] = Str::uuid();
         $user = User::create($data);
-        $this->historyService->logAction($user->id, 'User', [], $user->toArray(), 'created');
+        $this->historyService->logAction($user->id, 'User', [], $user->toArray(), 'create');
         return $user;
     }
 
@@ -50,7 +55,7 @@ class UserService
         $user = $this->getUser($id);
         $before = $user->toArray();
         $user->update($data);
-        $this->historyService->logAction($user->id, 'User', $before, $user->toArray(), 'updated');
+        $this->historyService->logAction($user->id, 'User', $before, $user->toArray(), 'update');
         Cache::forget("user:{$id}");
         return $user;
     }
@@ -60,7 +65,7 @@ class UserService
         $user = $this->getUser($id);
         $before = $user->toArray();
         $user->delete();
-        $this->historyService->logAction($user->id, 'User', $before, $user->toArray(), 'soft_deleted');
+        $this->historyService->logAction($user->id, 'User', $before, $user->toArray(), 'soft_delete');
         Cache::forget("user:{$id}");
     }
 
@@ -74,7 +79,7 @@ class UserService
         $user = User::withTrashed()->findOrFail($id);
         $before = $user->toArray();
         $user->restore();
-        $this->historyService->logAction($user->id, 'User', $before, $user->toArray(), 'restored');
+        $this->historyService->logAction($user->id, 'User', $before, $user->toArray(), 'restore');
         Cache::forget("user:{$id}");
     }
 
@@ -83,7 +88,7 @@ class UserService
         $user = User::withTrashed()->findOrFail($id);
         $before = $user->toArray();
         $user->forceDelete();
-        $this->historyService->logAction($user->id, 'User', $before, [], 'force_deleted');
+        $this->historyService->logAction($user->id, 'User', $before, [], 'force_delete');
         Cache::forget("user:{$id}");
     }
 

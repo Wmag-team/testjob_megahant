@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\History;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class HistoryService
 {
@@ -12,6 +13,7 @@ class HistoryService
     {
 
         History::create([
+            'id' => Uuid::uuid6(),
             'model_id' => $modelId,
             'model_name' => $modelName,
             'before' => $before,

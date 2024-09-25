@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('model_name', 250);
             $table->json('before')->nullable();
             $table->json('after')->nullable();
-            $table->enum('action', ['create', 'update', 'delete']);
+            $table->enum('action', ['create', 'update', 'soft_delete', 'restore', 'force_deleted']);
             $table->softDeletes(); // Для deleted_at
             $table->timestamps(); // Для created_at и updated_at
         });
