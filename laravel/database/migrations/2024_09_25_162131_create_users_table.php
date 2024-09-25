@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('middle_name', 40)->nullable();
             $table->string('email', 80)->unique();
             $table->string('phone', 20)->nullable();
+            $table->string('password', 120);
             $table->rememberToken();
             $table->softDeletes(); // Для deleted_at
             $table->timestamps(); // Для created_at и updated_at

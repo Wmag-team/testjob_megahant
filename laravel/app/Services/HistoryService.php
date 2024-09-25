@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Models\History;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class HistoryService
 {
     public function logAction(string $modelId, string $modelName, array $before, array $after, string $action): void
     {
+
         History::create([
             'model_id' => $modelId,
             'model_name' => $modelName,

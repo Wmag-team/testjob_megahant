@@ -6,19 +6,16 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserService
 {
     protected $historyService;
 
-    public function __construct(HistoryService $historyService)
-    {
-        $this->historyService = $historyService;
-    }
-
     public function createUser(array $data): User
     {
         $data['password'] = Hash::make($data['password']);
+        $data['id'] = Str::uuid();
         $user = User::create($data);
         $this->historyService->logAction($user->id, 'User', [], $user->toArray(), 'created');
         return $user;
