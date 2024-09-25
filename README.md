@@ -1,7 +1,7 @@
 ## Full instructions on how to install and run the latest laravel on docker containers + redis + postgres + Horizon Jobs
 
 Just follow this instruction and have a fun with developing software :)
-After this installation on any server you will have complite working last version of laravel with Jobs queue on Redis, controlled by Horizon - it will give unlimited options to produce any Queue with any confiuration! Good luck!
+After this installation on any server you will have complete working last version of laravel with Jobs queue on Redis, controlled by Horizon - it will give unlimited options to produce any Queue with any confiuration! Good luck!
 
 ### Installation with explanations:
 
@@ -66,3 +66,22 @@ php artisan config:clear
 php artisan view:cache
 php artisan view:clear
 ```
+
+### Why do you need it ?
+
+This repository, along with the installation instructions, is a product of intellectual labor that provides a solution for many developers (I, for my part, broke many spears before creating this universal installation package).
+
+Its content, together with the installation instructions, resolves the installation of the following configuration in just one minute:
+
+Laravel 11
++ Horizon (managing various queue configurations within the project)
++ Laravel Schedule (managing cron jobs through Laravel, rather than an external system cron)
++ Supervision (ensures that Horizon and Laravel Schedule processes are always running and operational)
++ Redis (cache driver necessary for Horizon)
++ PostgreSQL (by default, I use this database, but there can be various options)
++ Nginx configured for local machines
+- All of this runs on any machine since each element is a Docker container, giving developers a 100% guarantee that they are developing the product in a unified software environment configuration.
+
+This software environment package, which is well-integrated and functions as a whole without glitches or other complaints, can be installed on any PC in just a few minutes (as long as it has Docker).
+
+I believe that for modern applications, this is the minimally necessary set of software environments that every application should include by default. This is a universal software environment package that can certainly be expanded but is unlikely to be reduced.
