@@ -1,3 +1,5 @@
+My thought about it on youTube video (18min): https://www.youtube.com/watch?v=hQClctGqGI8
+
 ### Installation with explanations:
 
 1. Download this git repository to your PC by command:
