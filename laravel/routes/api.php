@@ -13,11 +13,11 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::get('/users/trashed', [UserController::class, 'trashed']);
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'softDelete']);
-    Route::get('/users/trashed', [UserController::class, 'trashed']);
     Route::post('/users/{id}/restore', [UserController::class, 'restore']);
     Route::delete('/users/{id}/force', [UserController::class, 'forceDelete']);
     Route::post('/users/bulk-soft-delete', [UserController::class, 'bulkSoftDelete']);

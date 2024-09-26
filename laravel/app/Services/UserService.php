@@ -19,7 +19,7 @@ class UserService
 
     public function createUser(array $data): User
     {
-        $data['id'] = Uuid::uuid6();
+        $data['id'] = Uuid::uuid6()->toString();
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         $this->historyService->logAction($user->id, 'User', [], $user->toArray(), 'create');

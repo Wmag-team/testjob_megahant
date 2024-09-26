@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "/api/v1"
+            "url": "/api"
         }
     ],
     "paths": {
@@ -30,7 +30,16 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "example": "John Doe"
+                                        "example": "Alex"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Erm"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "phone",
+                                        "example": "+79777648000"
                                     },
                                     "email": {
                                         "type": "string",
@@ -40,7 +49,7 @@
                                     "password": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "your_password"
+                                        "example": "your_password, min:8"
                                     }
                                 },
                                 "type": "object"
@@ -417,6 +426,14 @@
             "401": {
                 "description": "Invalid login details"
             }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
         }
     },
     "tags": [
@@ -427,6 +444,16 @@
         {
             "name": "users",
             "description": "User management"
+        }
+    ],
+    "security": [
+        {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
         }
     ]
 }

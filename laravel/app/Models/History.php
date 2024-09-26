@@ -11,6 +11,7 @@ class History extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'id',
         'model_id',
         'model_name',
         'before',

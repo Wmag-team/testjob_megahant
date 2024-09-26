@@ -15,7 +15,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => Uuid::uuid6(),
+            'id' => Uuid::uuid6()->toString(),
             'last_name' => $this->faker->lastName,
             'name' => $this->faker->firstName,
             'middle_name' => $this->faker->optional()->firstName,

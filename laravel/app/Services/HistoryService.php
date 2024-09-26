@@ -13,7 +13,7 @@ class HistoryService
     {
 
         History::create([
-            'id' => Uuid::uuid6(),
+            'id' => Uuid::uuid6()->toString(),
             'model_id' => $modelId,
             'model_name' => $modelName,
             'before' => $before,
