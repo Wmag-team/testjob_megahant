@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @OA\Tag(
+ *     name="auth",
+ *     description="Authentication management"
+ * )
+ */
 class AuthController extends Controller
 {
     protected $userService;
@@ -20,6 +26,31 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/register",
+     *     tags={"auth"},
+     *     summary="User registration",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="your_password"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User registered successfully"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error"
+     *     )
+     * )
+     */
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = $this->userService->createUser($request->validated());
@@ -32,6 +63,30 @@ class AuthController extends Controller
         ], 201);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/login",
+     *     tags={"auth"},
+     *     summary="User login",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="your_password")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User logged in successfully"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Invalid login details"
+     *     )
+     * )
+     */
     public function login(LoginRequest $request): JsonResponse
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -48,12 +103,56 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/logout",
+     *     tags={"auth"},
+     *     summary="User logout",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="User logged out successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out successfully']);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/reset-password",
+     *      tags={"auth"},
+     *      summary="Reset user password",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *              @OA\Property(property="password", type="string", format="password", example="new_password"),
+     *              @OA\Property(property="password_confirmation", type="string", format="password", example="new_password")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Password reset successfully"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="User not found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation error"
+     *      )
+     * )
+     */
     public function resetPassword(Request $request): JsonResponse
     {
         $request->validate([
